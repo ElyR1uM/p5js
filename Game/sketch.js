@@ -1,5 +1,6 @@
 /* global p5 */
 
+let box
 let playerPosition
 let playerCam
 let movementState = {
@@ -12,10 +13,10 @@ function preload() {
 }
 
 function setup() {
+  angleMode(DEGREES)
   playerPosition = createVector(0, 0, 0)
   let canvas = createCanvas(windowWidth / 2, windowHeight * 0.99, WEBGL)
   canvas.style("display", "block")
-  console.log(windowWidth / 2, windowHeight)
   //requestPointerLock()
   playerCam = createCamera()
   speedModifier = 0;
@@ -24,15 +25,15 @@ function setup() {
 
 function draw() {
   background(220)
-  box(0, 0, 0)
+  box = box(0, 0, 0)
   HandleStates()
   MyInput()
   MovePlayer()
-  console.log(playerPosition.x, playerPosition.y, playerPosition.z);
+  //console.log(playerPosition.x, playerPosition.y, playerPosition.z)
 }
 
 function MovePlayer() {
-  playerCam.setPosition(playerPosition.x, playerPosition.y, playerPosition.z)
+  playerCam.setPosition(playerPosition.x, playerPosition.y, playerPosition.z) // Set the position of the Player in world space
 }
 
 function HandleStates() {
