@@ -1,7 +1,7 @@
 /* global p5 */
 
-let playerSprite
-let playerX, playerY
+let playerPosition
+let playerCam
 let movementState = {
   "idle": 0,
   "walking": 1,
@@ -9,26 +9,33 @@ let movementState = {
 }
 let speedModifier
 function preload() {
-  playerSprite = loadImage("./Assets/playerSprite.png")
 }
 
 function setup() {
-  speedModifier = 0;
-  playerX = windowWidth / 4
-  playerY = windowHeight / 4
-  let canvas = createCanvas(windowWidth / 2, windowHeight / 2)
+  playerPosition = createVector(0, 0, 0)
+  let canvas = createCanvas(windowWidth / 2, windowHeight * 0.99, WEBGL)
   canvas.style("display", "block")
-  console.log(windowWidth / 2, windowHeight / 2)
+  console.log(windowWidth / 2, windowHeight)
+  //requestPointerLock()
+  playerCam = createCamera()
+  speedModifier = 0;
+  normalMaterial()
 }
 
 function draw() {
   background(220)
-  image(playerSprite, playerX, playerY)
-  handleStates()
-  myInput()
+  box(0, 0, 0)
+  HandleStates()
+  MyInput()
+  MovePlayer()
+  console.log(playerPosition.x, playerPosition.y, playerPosition.z);
 }
 
-function handleStates() {
+function MovePlayer() {
+  playerCam.setPosition(playerPosition.x, playerPosition.y, playerPosition.z)
+}
+
+function HandleStates() {
   switch (movementState) {
     case 0:
       speedModifier = 0
@@ -37,13 +44,13 @@ function handleStates() {
       speedModifier = 3
       break
     case 2:
-      speedModifier = 5
+      speedModifier = 7
       break
   }
 }
 
 // Register input of the user
-function myInput() {
+function MyInput() {
 
   if (keyIsDown(16)) { // Shift
     movementState = 2
@@ -51,15 +58,15 @@ function myInput() {
     movementState = 1
   }
   if (keyIsDown(65)) { // A
-    playerX -= 1 * speedModifier
+    playerPosition.x -= 1 * speedModifier
   }
   if (keyIsDown(68)) { // D
-    playerX += 1 * speedModifier
+    playerPosition.x += 1 * speedModifier
   }
   if (keyIsDown(87)) { // W
-    playerY -= 1 * speedModifier
+    playerPosition.y -= 1 * speedModifier
   }
   if (keyIsDown(83)) { // S
-    playerY += 1 * speedModifier
+    playerPosition.y += 1 * speedModifier
   }
 }
