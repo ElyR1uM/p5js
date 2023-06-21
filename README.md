@@ -1,2 +1,3 @@
 # p5js
-p5js game for school
+
+This project is to learn p5js and create a game for school
