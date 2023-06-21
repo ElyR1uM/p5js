@@ -1,4 +1,5 @@
 /* global p5 */
+import("../Lib/addons/p5.easycam.js")
 
 let box
 let playerPosition
