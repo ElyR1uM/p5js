@@ -1,5 +1,4 @@
 /* global p5 */
-import("../Lib/p5.js") // Import p5 library
 
 let playerSprite
 let playerX, playerY
